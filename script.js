@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div style="width: 80px; height: 80px; background: #f4d158; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 30px; color: #0d6633;">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p><strong>Sarah Johnson</strong></p>
+                            <p><strong>Mashael Alyahya</strong></p>
                             <p>Senior Director of Risk Management</p>
-                            <p style="font-size: 0.9rem; margin-top: 10px;">sarah.johnson@example.com</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">Mashael.Alyahya@PIF.com</p>
                             <p style="font-size: 0.9rem;">+966 12 345 6789</p>
                         </div>
                     </div>
@@ -247,4 +247,5 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
     }
+
 });
