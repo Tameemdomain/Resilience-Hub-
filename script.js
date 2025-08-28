@@ -126,14 +126,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const year = yearSelect.options[yearSelect.selectedIndex].text;
         
         if (division && department && year) {
-            resultElement.innerHTML = `Division: <span style="color: #0d6633">${division}</span>, 
-                                     Department: <span style="color: #0d6633">${department}</span>, 
-                                     Year: <span style="color: #0d6633">${year}</span>`;
+            resultElement.innerHTML = `Division: <span style="color: var(--primary-blue)">${division}</span>, 
+                                     Department: <span style="color: var(--primary-blue)">${department}</span>, 
+                                     Year: <span style="color: var(--primary-blue)">${year}</span>`;
         } else if (division && department) {
-            resultElement.innerHTML = `Division: <span style="color: #0d6633">${division}</span>, 
-                                     Department: <span style="color: #0d6633">${department}</span>`;
+            resultElement.innerHTML = `Division: <span style="color: var(--primary-blue)">${division}</span>, 
+                                     Department: <span style="color: var(--primary-blue)">${department}</span>`;
         } else if (division) {
-            resultElement.innerHTML = `Division: <span style="color: #0d6633">${division}</span>`;
+            resultElement.innerHTML = `Division: <span style="color: var(--primary-blue)">${division}</span>`;
         } else {
             resultElement.textContent = 'Please make your selections above';
         }
@@ -156,12 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h3><i class="fas fa-user-shield"></i> Risk Champion</h3>
                     <div class="info-content">
                         <div style="text-align: center; padding: 20px;">
-                            <div style="width: 80px; height: 80px; background: #f4d158; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 30px; color: #0d6633;">
+                            <div style="width: 80px; height: 80px; background: var(--accent-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 30px; color: var(--primary-blue);">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p><strong> Mashael Alyahya </strong></p>
+                            <p><strong>Sarah Johnson</strong></p>
                             <p>Senior Director of Risk Management</p>
-                            <p style="font-size: 0.9rem; margin-top: 10px;">Mashael Alyahya @example.com</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">sarah.johnson@example.com</p>
                             <p style="font-size: 0.9rem;">+966 12 345 6789</p>
                         </div>
                     </div>
@@ -174,15 +174,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p><strong>Version:</strong> 3.2</p>
                         <p><strong>Last Updated:</strong> March 15, ${year}</p>
                         <p><strong>Next Review:</strong> September 15, ${year}</p>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 90%;"></div>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                            <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={d23ed158-696b-48d0-8c94-53cac0d162d5}&action=embedview&wdStartOn=1" 
+                               target="_blank" class="btn">
+                                <i class="fas fa-eye"></i> View BCP
+                            </a>
+                            <a href="#" class="btn" style="background-color: var(--secondary-green);">
+                                <i class="fas fa-download"></i> Download PDF
+                            </a>
                         </div>
-                        <p style="font-size: 0.9rem;">Implementation Progress: 90%</p>
-                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={d23ed158-696b-48d0-8c94-53cac0d162d5}&action=embedview&wdStartOn=1" target="_blank" class="btn">View BCP Document</a>
                     </div>
                 </div>
-                
-               
                 
                 <div class="info-card">
                     <h3><i class="fas fa-dumbbell"></i> BC Exercise Document</h3>
@@ -219,13 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="info-content" id="actions">
                         <p><strong>Priority Actions:</strong></p>
                         <ul class="document-list">
-                            <li><i class="fas fa-exclamation-circle" style="color: #e53935;"></i> Update BIA for new infrastructure</li>
                             <li><i class="fas fa-user-plus" style="color: #f57c00;"></i> Train new team members on BCP</li>
-                            <li><i class="fas fa-sync-alt" style="color: #0d6633;"></i> Refresh contact lists</li>
+                            <li><i class="fas fa-sync-alt" style="color: var(--primary-blue);"></i> Refresh contact lists</li>
                         </ul>
                         <p style="margin-top: 15px;"><strong>Deadlines:</strong></p>
                         <ul class="document-list">
-                            <li><i class="fas fa-calendar"></i> BIA Update - September 30, ${year}</li>
                             <li><i class="fas fa-calendar"></i> Training Completion - August 15, ${year}</li>
                         </ul>
                     </div>
@@ -234,4 +235,3 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 });
-
