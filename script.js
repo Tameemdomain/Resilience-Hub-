@@ -159,9 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div style="width: 80px; height: 80px; background: #f4d158; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 30px; color: #0d6633;">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p><strong>Mashael Alyahya</strong></p>
+                            <p><strong>Sarah Johnson</strong></p>
                             <p>Senior Director of Risk Management</p>
-                            <p style="font-size: 0.9rem; margin-top: 10px;">Mashael.Alyahya@PIF.com</p>
+                            <p style="font-size: 0.9rem; margin-top: 10px;">sarah.johnson@example.com</p>
                             <p style="font-size: 0.9rem;">+966 12 345 6789</p>
                         </div>
                     </div>
@@ -182,21 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                <div class="info-card">
-                    <h3><i class="fas fa-chart-pie"></i> Business Impact Analysis (BIA)</h3>
-                    <div class="info-content">
-                        <p><strong>Status:</strong> <span class="status yes">COMPLETED</span></p>
-                        <p><strong>Completion Date:</strong> January 15, ${year}</p>
-                        <p><strong>RTO:</strong> 4 hours</p>
-                        <p><strong>RPO:</strong> 1 hour</p>
-                        <p><strong>Critical Functions:</strong> 12 identified</p>
-                        <ul class="document-list">
-                            <li><i class="fas fa-file-pdf"></i> BIA Full Report</li>
-                            <li><i class="fas fa-file-excel"></i> Impact Analysis Data</li>
-                        </ul>
-                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={d23ed158-696b-48d0-8c94-53cac0d162d5}&action=embedview&wdStartOn=1" target="_blank" class="btn">View BIA Report</a>
-                    </div>
-                </div>
+               
                 
                 <div class="info-card">
                     <h3><i class="fas fa-dumbbell"></i> BC Exercise Document</h3>
@@ -247,5 +233,4 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
     }
-
 });
