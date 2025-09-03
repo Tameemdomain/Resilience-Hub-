@@ -12,16 +12,50 @@
         <div class="logo-header">
             <div class="logo">
                 <img src="PIF-Logo.jfif" alt="PIF Logo" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo-divider"></div>
                 <div class="logo-text">RESILIENCE HUB</div>
             </div>
         </div>
         
         <header>
-            <h1>Resilience Hub</h1>
-            <p class="description">Select division, department, and year to view risk management information</p>
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>Risk Management Dashboard</h1>
+                    <p class="description">Select division, department, and year to view risk management information</p>
+                </div>
+                <div class="header-actions">
+                    <button id="dark-mode-toggle" class="dark-mode-toggle" title="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="contact-us-btn" class="contact-us-btn">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </button>
+                    <button id="report-incident-btn" class="report-incident-btn">
+                        <i class="fas fa-exclamation-triangle"></i> Report Incident
+                    </button>
+                </div>
+            </div>
         </header>
         
         <div class="dashboard">
+            <!-- Breadcrumb Navigation -->
+            <div class="breadcrumb-container">
+                <nav class="breadcrumb">
+                    <span class="breadcrumb-item active">
+                        <i class="fas fa-home"></i> Dashboard
+                    </span>
+                    <span class="breadcrumb-item" id="breadcrumb-division" style="display: none;">
+                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-division-text"></span>
+                    </span>
+                    <span class="breadcrumb-item" id="breadcrumb-department" style="display: none;">
+                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-department-text"></span>
+                    </span>
+                    <span class="breadcrumb-item" id="breadcrumb-year" style="display: none;">
+                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-year-text"></span>
+                    </span>
+                </nav>
+            </div>
+            
             <div class="selection-panel">
                 <div class="boxes-container">
                     <div class="box">
@@ -31,12 +65,11 @@
                         </div>
                         <select id="division">
                             <option value="">Select a Division</option>
-                            <option value="engineering">Engineering</option>
-                            <option value="sales">Sales and Marketing</option>
-                            <option value="finance">Finance</option>
-                            <option value="hr">Human Resources</option>
-                            <option value="operations">Operations</option>
-                            <option value="research">Research and Development</option>
+                            <option value="mena-investment">MENA Investment</option>
+                            <option value="international-investment">International Investment</option>
+                            <option value="risk">Risk</option>
+                            <option value="real-estate-investment">Real Estate Investment</option>
+                            <option value="legal">Legal</option>
                         </select>
                     </div>
                     
@@ -61,21 +94,51 @@
                     </div>
                 </div>
                 
-                <button id="search-btn" class="search-btn" disabled>
-                    <i class="fas fa-search"></i> Search
-                </button>
-                
-                <div class="box">
-                    <div class="box-title">
-                        <i class="fas fa-info-circle"></i>
-                        <h2>Selection Summary</h2>
-                    </div>
-                    <p id="selected-result">Please make your selections above</p>
+                <div class="action-buttons">
+                    <button id="search-btn" class="search-btn" disabled>
+                        <i class="fas fa-search"></i>
+                        <span class="btn-text">Search</span>
+                        <div class="spinner" style="display: none;"></div>
+                    </button>
+                    
+                    <button id="clear-all-btn" class="clear-all-btn">
+                        <i class="fas fa-times-circle"></i> Clear All
+                    </button>
                 </div>
             </div>
             
             <div class="results-panel">
                 <h2>Risk Management Information</h2>
+                
+                <!-- Loading State -->
+                <div id="loading-state" class="loading-state" style="display: none;">
+                    <div class="skeleton-cards">
+                        <div class="skeleton-card">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-content">
+                                <div class="skeleton-line"></div>
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-card">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-content">
+                                <div class="skeleton-line"></div>
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-card">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-content">
+                                <div class="skeleton-line"></div>
+                                <div class="skeleton-line short"></div>
+                                <div class="skeleton-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div id="results-container">
                     <div class="no-data">
@@ -83,28 +146,56 @@
                         <p>Please select division, department, and year, then click Search to view results</p>
                     </div>
                 </div>
-                
-                <!-- BC Exercise Document Section -->
-                <div class="box" style="margin-top: 30px;">
-                    <div class="box-title">
-                        <i class="fas fa-file-contract"></i>
-                        <h2>BC Exercise Document</h2>
-                    </div>
-                    <div class="info-content">
-                        <p>View the BC Exercise Document directly in the dashboard:</p>
-                        
-                        <div class="bcp-embed">
-                            <iframe src="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={51a15634-a3f6-4dd1-957a-a280b5efc920}&amp;action=embedview&amp;wdStartOn=1" width="476px" height="288px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> document, powered by <a target="_blank" href="https://office.com/webapps">Office Online</a>.</iframe>
-                        </div>
-                        
-                        <div style="margin-top: 15px;">
-                            <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={51a15634-a3f6-4dd1-957a-a280b5efc920}&amp;action=embedview&amp;wdStartOn=1" 
-                               target="_blank" class="btn">
-                                <i class="fas fa-external-link-alt"></i> Open BC Exercise Document in New Tab
-                            </a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="toast-container"></div>
+        
+        <!-- Report Incident Modal -->
+        <div id="incident-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Report Incident</h2>
+                    <span class="close">&times;</span>
                 </div>
+                <form id="incident-form">
+                    <div class="form-group">
+                        <label for="incident-division">Division:</label>
+                        <select id="incident-division" required>
+                            <option value="">Select a Division</option>
+                            <option value="mena-investment">MENA Investment</option>
+                            <option value="international-investment">International Investment</option>
+                            <option value="risk">Risk</option>
+                            <option value="real-estate-investment">Real Estate Investment</option>
+                            <option value="legal">Legal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="incident-department">Department:</label>
+                        <select id="incident-department" required>
+                            <option value="">Select a Department</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="incident-date">Date of Incident:</label>
+                        <input type="date" id="incident-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="incident-description">Incident Description:</label>
+                        <textarea id="incident-description" rows="5" placeholder="Please describe the incident in detail..." required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="cancel-incident" class="btn btn-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-paper-plane"></i> Submit Report
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
         
