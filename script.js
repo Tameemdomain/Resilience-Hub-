@@ -79,12 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update departments when division changes
     divisionSelect.addEventListener('change', function() {
         const division = this.value;
+        console.log('Division selected:', division); // Debug log
         
         // Reset department and year
         departmentSelect.innerHTML = '<option value="">Select a Department</option>';
         yearSelect.innerHTML = '<option value="">Select a Year</option>';
         
-        if (division) {
+        if (division && departmentOptions[division]) {
+            console.log('Found departments for division:', departmentOptions[division]); // Debug log
             // Add departments for the selected division
             departmentOptions[division].forEach(dept => {
                 const option = document.createElement('option');
@@ -92,25 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 option.textContent = dept;
                 departmentSelect.appendChild(option);
             });
-    
-    // Contact Us button functionality
-    contactUsBtn.addEventListener('click', function() {
-        const subject = 'Resilience Hub - Contact Request';
-        const body = `Hello,
-
-I am contacting you regarding the Resilience Hub dashboard.
-
-Please provide your inquiry below:
-
-
-Best regards,
-`;
-        
-        const mailtoLink = `mailto:brgovernance@pif.gov.sa?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailtoLink;
-        
-        showToast('Opening email client...', 'info');
-    });
+        } else {
+            console.log('No departments found for division:', division); // Debug log
         }
         
         updateBreadcrumb();
@@ -120,11 +105,13 @@ Best regards,
     // Update years when department changes
     departmentSelect.addEventListener('change', function() {
         const departmentText = this.options[this.selectedIndex].text;
+        console.log('Department selected:', departmentText); // Debug log
         
         // Reset year
         yearSelect.innerHTML = '<option value="">Select a Year</option>';
         
-        if (departmentText && yearOptions[departmentText]) {
+        if (departmentText && departmentText !== 'Select a Department' && yearOptions[departmentText]) {
+            console.log('Found years for department:', yearOptions[departmentText]); // Debug log
             // Add years for the selected department
             yearOptions[departmentText].forEach(year => {
                 const option = document.createElement('option');
@@ -132,6 +119,8 @@ Best regards,
                 option.textContent = year;
                 yearSelect.appendChild(option);
             });
+        } else {
+            console.log('No years found for department:', departmentText); // Debug log
         }
         
         updateBreadcrumb();
@@ -222,6 +211,25 @@ Best regards,
             localStorage.setItem('theme', 'light');
             showToast('Light mode enabled', 'success');
         }
+    });
+    
+    // Contact Us button functionality
+    contactUsBtn.addEventListener('click', function() {
+        const subject = 'Resilience Hub - Contact Request';
+        const body = `Hello,
+
+I am contacting you regarding the Resilience Hub dashboard.
+
+Please provide your inquiry below:
+
+
+Best regards,
+`;
+        
+        const mailtoLink = `mailto:brgovernance@pif.gov.sa?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
+        
+        showToast('Opening email client...', 'info');
     });
     
     // Toast notification system
@@ -339,6 +347,26 @@ Best regards,
                             </a>
                             <a href="#" class="btn btn-download" onclick="downloadBCP('${department}', '${year}')">
                                 <i class="fas fa-download"></i> Download BCP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-chart-bar"></i> Business Impact Analysis (BIA)</h3>
+                    <div class="info-content">
+                        <p><strong>Status:</strong> <span class="status yes">CURRENT</span></p>
+                        <p><strong>Version:</strong> 2.1</p>
+                        <p><strong>Last Updated:</strong> February 20, ${year}</p>
+                        <p><strong>Next Review:</strong> August 20, ${year}</p>
+                        
+                        <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                            <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={a1a85ffc-8768-4ef2-ad5c-9bbfd4ab4785}&action=embedview&wdStartOn=1" 
+                               target="_blank" class="btn">
+                                <i class="fas fa-eye"></i> View BIA
+                            </a>
+                            <a href="#" class="btn btn-download" onclick="downloadBIA('${department}', '${year}')">
+                                <i class="fas fa-download"></i> Download BIA
                             </a>
                         </div>
                     </div>
@@ -471,6 +499,16 @@ function downloadBCP(department, year) {
     
     // You can replace this with actual download logic, such as:
     // window.open('path/to/bcp/document.pdf', '_blank');
+    // or trigger a file download from your server
+}
+
+function downloadBIA(department, year) {
+    // In a real implementation, this would trigger an actual download
+    alert(`Downloading Business Impact Analysis for ${department} - ${year}...`);
+    console.log(`BIA download initiated for: ${department}, Year: ${year}`);
+    
+    // You can replace this with actual download logic, such as:
+    // window.open('path/to/bia/document.pdf', '_blank');
     // or trigger a file download from your server
 }
 
