@@ -21,7 +21,7 @@
             <div class="header-content">
                 <div class="header-title">
                     <h1>Risk Management Dashboard</h1>
-                    <p class="description">Select division, department, and year to view risk management information</p>
+                    <p class="description">Select division and department to view risk management information</p>
                 </div>
                 <div class="header-actions">
                     <button id="dark-mode-toggle" class="dark-mode-toggle" title="Toggle Dark Mode">
@@ -49,9 +49,6 @@
                     </span>
                     <span class="breadcrumb-item" id="breadcrumb-department" style="display: none;">
                         <i class="fas fa-chevron-right"></i> <span id="breadcrumb-department-text"></span>
-                    </span>
-                    <span class="breadcrumb-item" id="breadcrumb-year" style="display: none;">
-                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-year-text"></span>
                     </span>
                 </nav>
             </div>
@@ -82,16 +79,6 @@
                             <option value="">Select a Department</option>
                         </select>
                     </div>
-                    
-                    <div class="box">
-                        <div class="box-title">
-                            <i class="fas fa-calendar-alt"></i>
-                            <h2>Year</h2>
-                        </div>
-                        <select id="year">
-                            <option value="">Select a Year</option>
-                        </select>
-                    </div>
                 </div>
                 
                 <div class="action-buttons">
@@ -112,8 +99,8 @@
                 
                 <!-- Loading State -->
                 <div id="loading-state" class="loading-state" style="display: none;">
-                    <div class="skeleton-cards">
-                        <div class="skeleton-card">
+                    <div class="skeleton-rows">
+                        <div class="skeleton-row">
                             <div class="skeleton-header"></div>
                             <div class="skeleton-content">
                                 <div class="skeleton-line"></div>
@@ -121,7 +108,7 @@
                                 <div class="skeleton-line"></div>
                             </div>
                         </div>
-                        <div class="skeleton-card">
+                        <div class="skeleton-row">
                             <div class="skeleton-header"></div>
                             <div class="skeleton-content">
                                 <div class="skeleton-line"></div>
@@ -129,7 +116,7 @@
                                 <div class="skeleton-line"></div>
                             </div>
                         </div>
-                        <div class="skeleton-card">
+                        <div class="skeleton-row">
                             <div class="skeleton-header"></div>
                             <div class="skeleton-content">
                                 <div class="skeleton-line"></div>
@@ -141,10 +128,7 @@
                 </div>
                 
                 <div id="results-container">
-                    <div class="no-data">
-                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 15px;"></i>
-                        <p>Please select division, department, and year, then click Search to view results</p>
-                    </div>
+                    <!-- This will be empty initially and populated only after search -->
                 </div>
             </div>
         </div>
