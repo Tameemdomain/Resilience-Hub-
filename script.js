@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Department options based on division
     const departmentOptions = {
-        'mena-investment': ['Asset Management', 'Portfolio Analysis', 'Market Research', 'Investment Operations', 'Due Diligence'],
+        'mena-investment': ['Direct Investments (1)', 'Direct Investments (2)', 'Investment Planning & Governance', 'Operational Value Creation Group', 'Securities Investments'],
         'international-investment': ['Global Markets', 'Cross-Border Transactions', 'International Relations', 'Currency Management', 'Regional Analysis'],
-        'risk': ['Risk Assessment', 'Compliance Monitoring', 'Regulatory Affairs', 'Risk Analytics', 'Internal Audit'],
+        'risk': ['Operational Risk', 'Cybersecurity Risk', 'Investment Risk Analysis', 'Investment Risk Coverage', 'Risk Planning and Governance'],
         'real-estate-investment': ['Property Acquisition', 'Asset Valuation', 'Development Projects', 'Property Management', 'Real Estate Analytics'],
         'legal': ['Corporate Law', 'Investment Legal', 'Compliance Legal', 'Contract Management', 'Regulatory Legal']
     };
@@ -256,11 +256,11 @@ Best regards,
                             <h3>Risk Champion</h3>
                             <div class="champion-section">
                                 <h4>Primary:</h4>
-                                <p><strong>Mashael Alyahya</strong> - Senior Director | mashael.alyahya@pif.gov.sa | +966 12 345 6789</p>
+                                <p><strong>Mashael Alyahya</strong> - Senior Associate | mashael.alyahya@pif.gov.sa | +966 12 345 6789</p>
                             </div>
                             <div class="champion-section">
                                 <h4>Secondary:</h4>
-                                <p><strong>Ahmed Alotaibi</strong> - Risk Specialist | ahmed.alotaibi@pif.gov.sa | +966 12 345 6788</p>
+                                <p><strong>Raghad Alotaibi</strong> - Senior Analyst | raghad.alotaibi@pif.gov.sa | +966 12 345 6788</p>
                             </div>
                         </div>
                     </div>
@@ -269,15 +269,12 @@ Best regards,
                 <!-- Floor Marshal Row -->
                 <div class="info-row other-row">
                     <div class="floor-marshal-content">
-                        <div class="floor-marshal-avatar" style="background: #c5a86e !important; color: #0d4d2e !important;">
+                        <div class="floor-marshal-avatar">
                             <i class="fas fa-hard-hat"></i>
                         </div>
                         <div class="floor-marshal-info">
                             <h3>Floor Marshal</h3>
-                            <p><strong>Tameem Altamimi</strong></p>
-                            <p>Emergency Coordinator</p>
-                            <p>tameem.altamimi@pif.gov.sa</p>
-                            <p>+966 12 345 6787</p>
+                            <p><strong>Tameem Altamimi</strong> - Head Of MENA Investment | tameem.altamimi@pif.gov.sa | +966 12 345 6787</p>
                         </div>
                     </div>
                 </div>
@@ -293,11 +290,11 @@ Best regards,
                         </div>
                     </div>
                     <div class="info-row-actions">
-                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={d23ed158-696b-48d0-8c94-53cac0d162d5}&action=embedview&wdStartOn=1" 
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={ec7ec71d-84a0-45de-b8b1-f688e9a5d6da}&amp;action=embedview&amp;wdStartOn=1" 
                            target="_blank" class="btn">
                             <i class="fas fa-eye"></i> View
                         </a>
-                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={d23ed158-696b-48d0-8c94-53cac0d162d5}&action=embedview&wdStartOn=1" 
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={ec7ec71d-84a0-45de-b8b1-f688e9a5d6da}&amp;action=embedview&amp;wdStartOn=1" 
                            target="_blank" class="btn btn-download">
                             <i class="fas fa-download"></i> Download
                         </a>
@@ -330,7 +327,7 @@ Best regards,
                 <div class="info-row other-row">
                     <div class="info-row-content">
                         <div class="info-row-icon">
-                            <i class="fas fa-dumbbell"></i>
+                            <i class="fas fa-clipboard-list"></i>
                         </div>
                         <div class="info-row-details">
                             <h3>BC Exercise Document</h3>
@@ -358,13 +355,14 @@ Best regards,
                         <div class="info-row-details">
                             <h3>Actions Required</h3>
                             <div class="actions-content">
-                                <div class="action-item priority">
-                                    <span class="action-label">Priority Actions:</span>
-                                    <span class="action-text">Updating BIA • Refresh contact lists</span>
-                                </div>
-                                <div class="action-item deadline">
-                                    <span class="action-label">Deadline:</span>
-                                    <span class="action-text">BIA update - August 15, 2025</span>
+                                <div class="action-item priority-item">
+                                    <div class="action-icon priority">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="action-details">
+                                        <span class="action-title">Update Business Impact Analysis (BIA)</span>
+                                        <span class="action-deadline">Due: August 15, 2025</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
