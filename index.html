@@ -1,193 +1,442 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resilience Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="logo-header">
-            <div class="logo">
-                <img src="PIF-Logo.jfif" alt="PIF Logo" class="logo-img" onerror="this.style.display='none'">
-                <div class="logo-divider"></div>
-                <div class="logo-text">RESILIENCE HUB</div>
+document.addEventListener('DOMContentLoaded', function() {
+    const divisionSelect = document.getElementById('division');
+    const departmentSelect = document.getElementById('department');
+    const searchBtn = document.getElementById('search-btn');
+    const clearAllBtn = document.getElementById('clear-all-btn');
+    const resultsContainer = document.getElementById('results-container');
+    const loadingState = document.getElementById('loading-state');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const contactUsBtn = document.getElementById('contact-us-btn');
+    
+    // Breadcrumb elements
+    const breadcrumbDivision = document.getElementById('breadcrumb-division');
+    const breadcrumbDepartment = document.getElementById('breadcrumb-department');
+    const breadcrumbDivisionText = document.getElementById('breadcrumb-division-text');
+    const breadcrumbDepartmentText = document.getElementById('breadcrumb-department-text');
+    
+    // Incident reporting elements
+    const reportIncidentBtn = document.getElementById('report-incident-btn');
+    const incidentModal = document.getElementById('incident-modal');
+    const closeModal = document.querySelector('.close');
+    const cancelIncident = document.getElementById('cancel-incident');
+    const incidentForm = document.getElementById('incident-form');
+    const incidentDivisionSelect = document.getElementById('incident-division');
+    const incidentDepartmentSelect = document.getElementById('incident-department');
+    
+    // Initialize the page with empty results and proper initial message
+    function initializePage() {
+        resultsContainer.innerHTML = `
+            <div class="no-data">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                <p>Please select division and department, then click Search to view results</p>
             </div>
-        </div>
+        `;
+    }
+    
+    // Initialize dark mode
+    function initializeDarkMode() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+    
+    // Initialize everything
+    initializeDarkMode();
+    initializePage();
+    
+    // Department options based on division
+    const departmentOptions = {
+        'mena-investment': ['Direct Investments (1)', 'Direct Investments (2)', 'Investment Planning & Governance', 'Operational Value Creation Group', 'Securities Investments'],
+        'international-investment': ['Global Markets', 'Cross-Border Transactions', 'International Relations', 'Currency Management', 'Regional Analysis'],
+        'risk': ['Operational Risk', 'Cybersecurity Risk', 'Investment Risk Analysis', 'Investment Risk Coverage', 'Risk Planning and Governance'],
+        'real-estate-investment': ['Property Acquisition', 'Asset Valuation', 'Development Projects', 'Property Management', 'Real Estate Analytics'],
+        'legal': ['Corporate Law', 'Investment Legal', 'Compliance Legal', 'Contract Management', 'Regulatory Legal']
+    };
+    
+    // Update departments when division changes
+    divisionSelect.addEventListener('change', function() {
+        const division = this.value;
         
-        <header>
-            <div class="header-content">
-                <div class="header-title">
-                    <h1>Risk Management Dashboard</h1>
-                    <p class="description">Select division and department to view risk management information</p>
-                </div>
-                <div class="header-actions">
-                    <button id="dark-mode-toggle" class="dark-mode-toggle" title="Toggle Dark Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <button id="contact-us-btn" class="contact-us-btn">
-                        <i class="fas fa-envelope"></i> Contact Us
-                    </button>
-                    <button id="report-incident-btn" class="report-incident-btn">
-                        <i class="fas fa-exclamation-triangle"></i> Report Incident
-                    </button>
-                </div>
-            </div>
-        </header>
+        // Reset department
+        departmentSelect.innerHTML = '<option value="">Select a Department</option>';
         
-        <div class="dashboard">
-            <!-- Breadcrumb Navigation -->
-            <div class="breadcrumb-container">
-                <nav class="breadcrumb">
-                    <span class="breadcrumb-item active">
-                        <i class="fas fa-home"></i> Dashboard
-                    </span>
-                    <span class="breadcrumb-item" id="breadcrumb-division" style="display: none;">
-                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-division-text"></span>
-                    </span>
-                    <span class="breadcrumb-item" id="breadcrumb-department" style="display: none;">
-                        <i class="fas fa-chevron-right"></i> <span id="breadcrumb-department-text"></span>
-                    </span>
-                </nav>
-            </div>
-            
-            <div class="selection-panel">
-                <div class="boxes-container">
-                    <div class="box">
-                        <div class="box-title">
-                            <i class="fas fa-sitemap"></i>
-                            <h2>Division</h2>
-                        </div>
-                        <select id="division">
-                            <option value="">Select a Division</option>
-                            <option value="mena-investment">MENA Investment</option>
-                            <option value="international-investment">International Investment</option>
-                            <option value="risk">Risk</option>
-                            <option value="real-estate-investment">Real Estate Investment</option>
-                            <option value="legal">Legal</option>
-                        </select>
-                    </div>
-                    
-                    <div class="box">
-                        <div class="box-title">
-                            <i class="fas fa-building"></i>
-                            <h2>Department</h2>
-                        </div>
-                        <select id="department">
-                            <option value="">Select a Department</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button id="search-btn" class="search-btn" disabled>
-                        <i class="fas fa-search"></i>
-                        <span class="btn-text">Search</span>
-                        <div class="spinner" style="display: none;"></div>
-                    </button>
-                    
-                    <button id="clear-all-btn" class="clear-all-btn">
-                        <i class="fas fa-times-circle"></i> Clear All
-                    </button>
-                </div>
-            </div>
-            
-            <div class="results-panel">
-                <h2>Risk Management Information</h2>
-                
-                <!-- Loading State -->
-                <div id="loading-state" class="loading-state" style="display: none;">
-                    <div class="skeleton-rows">
-                        <div class="skeleton-row">
-                            <div class="skeleton-header"></div>
-                            <div class="skeleton-content">
-                                <div class="skeleton-line"></div>
-                                <div class="skeleton-line short"></div>
-                                <div class="skeleton-line"></div>
-                            </div>
-                        </div>
-                        <div class="skeleton-row">
-                            <div class="skeleton-header"></div>
-                            <div class="skeleton-content">
-                                <div class="skeleton-line"></div>
-                                <div class="skeleton-line short"></div>
-                                <div class="skeleton-line"></div>
-                            </div>
-                        </div>
-                        <div class="skeleton-row">
-                            <div class="skeleton-header"></div>
-                            <div class="skeleton-content">
-                                <div class="skeleton-line"></div>
-                                <div class="skeleton-line short"></div>
-                                <div class="skeleton-line"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="results-container">
-                    <!-- This will be empty initially and populated only after search -->
-                </div>
-            </div>
-        </div>
+        // Reset results to initial state
+        initializePage();
         
-        <!-- Toast Notification Container -->
-        <div id="toast-container" class="toast-container"></div>
+        if (division && departmentOptions[division]) {
+            // Add departments for the selected division
+            departmentOptions[division].forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = dept;
+                departmentSelect.appendChild(option);
+            });
+        }
         
-        <!-- Report Incident Modal -->
-        <div id="incident-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2><i class="fas fa-exclamation-triangle"></i> Report Incident</h2>
-                    <span class="close">&times;</span>
-                </div>
-                <form id="incident-form">
-                    <div class="form-group">
-                        <label for="incident-division">Division:</label>
-                        <select id="incident-division" required>
-                            <option value="">Select a Division</option>
-                            <option value="mena-investment">MENA Investment</option>
-                            <option value="international-investment">International Investment</option>
-                            <option value="risk">Risk</option>
-                            <option value="real-estate-investment">Real Estate Investment</option>
-                            <option value="legal">Legal</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="incident-department">Department:</label>
-                        <select id="incident-department" required>
-                            <option value="">Select a Department</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="incident-date">Date of Incident:</label>
-                        <input type="date" id="incident-date" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="incident-description">Incident Description:</label>
-                        <textarea id="incident-description" rows="5" placeholder="Please describe the incident in detail..." required></textarea>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="button" id="cancel-incident" class="btn btn-cancel">Cancel</button>
-                        <button type="submit" class="btn btn-submit">
-                            <i class="fas fa-paper-plane"></i> Submit Report
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        updateBreadcrumb();
+        checkSearchButton();
+    });
+    
+    // Update breadcrumb when department changes
+    departmentSelect.addEventListener('change', function() {
+        updateBreadcrumb();
+        checkSearchButton();
+    });
+    
+    // Clear all selections
+    clearAllBtn.addEventListener('click', function() {
+        divisionSelect.value = '';
+        departmentSelect.innerHTML = '<option value="">Select a Department</option>';
         
-        <footer>
-            <p>&copy; 2025 Resilience Hub | Risk Management Dashboard</p>
-        </footer>
-    </div>
+        // Reset results to initial state
+        initializePage();
+        
+        updateBreadcrumb();
+        checkSearchButton();
+        
+        showToast('All selections cleared', 'info');
+    });
+    
+    // Check if search button should be enabled
+    function checkSearchButton() {
+        const division = divisionSelect.value;
+        const department = departmentSelect.value;
+        
+        searchBtn.disabled = !(division && department);
+    }
+    
+    // Function to update breadcrumb navigation
+    function updateBreadcrumb() {
+        const division = divisionSelect.options[divisionSelect.selectedIndex]?.text;
+        const department = departmentSelect.options[departmentSelect.selectedIndex]?.text;
+        
+        // Reset all breadcrumb items
+        breadcrumbDivision.style.display = 'none';
+        breadcrumbDepartment.style.display = 'none';
+        
+        if (division && division !== 'Select a Division') {
+            breadcrumbDivisionText.textContent = division;
+            breadcrumbDivision.style.display = 'inline';
+        }
+        
+        if (department && department !== 'Select a Department') {
+            breadcrumbDepartmentText.textContent = department;
+            breadcrumbDepartment.style.display = 'inline';
+        }
+    }
+    
+    // Dark mode functionality
+    darkModeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        
+        if (isDark) {
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('theme', 'dark');
+            showToast('Dark mode enabled', 'success');
+        } else {
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', 'light');
+            showToast('Light mode enabled', 'success');
+        }
+    });
+    
+    // Contact Us button functionality
+    contactUsBtn.addEventListener('click', function() {
+        const subject = 'Resilience Hub - Contact Request';
+        const body = `Hello,
 
-    <script src="script.js"></script>
-</body>
-</html>
+I am contacting you regarding the Resilience Hub dashboard.
+
+Please provide your inquiry below:
+
+
+Best regards,
+`;
+        
+        const mailtoLink = `mailto:brgovernance@pif.gov.sa?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
+        
+        showToast('Opening email client...', 'info');
+    });
+    
+    // Toast notification system
+    function showToast(message, type = 'info', duration = 3000) {
+        const toastContainer = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        
+        const icon = {
+            success: 'fas fa-check-circle',
+            error: 'fas fa-exclamation-circle',
+            warning: 'fas fa-exclamation-triangle',
+            info: 'fas fa-info-circle'
+        };
+        
+        toast.innerHTML = `
+            <i class="${icon[type]}"></i>
+            <span>${message}</span>
+            <button class="toast-close">&times;</button>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => toast.classList.add('show'), 100);
+        
+        // Auto remove
+        const autoRemove = setTimeout(() => {
+            removeToast(toast);
+        }, duration);
+        
+        // Manual close
+        toast.querySelector('.toast-close').addEventListener('click', () => {
+            clearTimeout(autoRemove);
+            removeToast(toast);
+        });
+    }
+    
+    function removeToast(toast) {
+        toast.classList.add('hide');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+    
+    // Handle search button click with loading state
+    searchBtn.addEventListener('click', function() {
+        const department = departmentSelect.options[departmentSelect.selectedIndex].text;
+        
+        // Show loading state
+        showLoadingState();
+        
+        // Simulate loading delay (in real app, this would be an API call)
+        setTimeout(() => {
+            hideLoadingState();
+            displaySampleResults(department);
+            showToast('Results loaded successfully!', 'success');
+        }, 1500);
+    });
+    
+    function showLoadingState() {
+        searchBtn.disabled = true;
+        searchBtn.querySelector('.btn-text').style.display = 'none';
+        searchBtn.querySelector('.spinner').style.display = 'inline-block';
+        searchBtn.querySelector('i').style.display = 'none';
+        
+        resultsContainer.style.display = 'none';
+        loadingState.style.display = 'block';
+    }
+    
+    function hideLoadingState() {
+        searchBtn.disabled = false;
+        searchBtn.querySelector('.btn-text').style.display = 'inline';
+        searchBtn.querySelector('.spinner').style.display = 'none';
+        searchBtn.querySelector('i').style.display = 'inline';
+        
+        loadingState.style.display = 'none';
+        resultsContainer.style.display = 'block';
+    }
+    
+    // Display sample results function - Updated to use compact row layout
+    function displaySampleResults(department) {
+        resultsContainer.innerHTML = `
+            <div class="info-rows">
+                <!-- Risk Champion Row -->
+                <div class="info-row risk-champion-row">
+                    <div class="risk-champion-content">
+                        <div class="risk-champion-avatar">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="risk-champion-info">
+                            <h3>Risk Champion</h3>
+                            <div class="champion-section">
+                                <h4>Primary:</h4>
+                                <p><strong>Mashael Alyahya</strong> - Senior Associate | mashael.alyahya@pif.gov.sa | +966 12 345 6789</p>
+                            </div>
+                            <div class="champion-section">
+                                <h4>Secondary:</h4>
+                                <p><strong>Raghad Alotaibi</strong> - Senior Analyst | raghad.alotaibi@pif.gov.sa | +966 12 345 6788</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Floor Marshal Row -->
+                <div class="info-row other-row">
+                    <div class="floor-marshal-content">
+                        <div class="floor-marshal-avatar">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div class="floor-marshal-info">
+                            <h3>Floor Marshal</h3>
+                            <p><strong>Tameem Altamimi</strong> - Business Resilience Expert | tameem.altamimi@pif.gov.sa | +966 12 345 6787</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BCP Row -->
+                <div class="info-row other-row">
+                    <div class="info-row-content">
+                        <div class="info-row-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <div class="info-row-details">
+                            <h3>Business Continuity Plan (BCP)</h3>
+                        </div>
+                    </div>
+                    <div class="info-row-actions">
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={ec7ec71d-84a0-45de-b8b1-f688e9a5d6da}&amp;action=embedview&amp;wdStartOn=1" 
+                           target="_blank" class="btn">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={ec7ec71d-84a0-45de-b8b1-f688e9a5d6da}&amp;action=embedview&amp;wdStartOn=1" 
+                           target="_blank" class="btn btn-download">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- BIA Row -->
+                <div class="info-row other-row">
+                    <div class="info-row-content">
+                        <div class="info-row-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="info-row-details">
+                            <h3>Business Impact Analysis (BIA)</h3>
+                        </div>
+                    </div>
+                    <div class="info-row-actions">
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={a1a85ffc-8768-4ef2-ad5c-9bbfd4ab4785}&action=embedview&wdStartOn=1" 
+                           target="_blank" class="btn">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="https://intranet-new.pif.gov.sa/sites/OR/BR/_layouts/15/WopiFrame.aspx?sourcedoc={a1a85ffc-8768-4ef2-ad5c-9bbfd4ab4785}&action=embedview&wdStartOn=1" 
+                           target="_blank" class="btn btn-download">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- BC Exercise Document Row -->
+                <div class="info-row other-row">
+                    <div class="info-row-content">
+                        <div class="info-row-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="info-row-details">
+                            <h3>BC Exercise Document</h3>
+                            <div class="info-row-meta">Exercise Date: October 15, 2025</div>
+                        </div>
+                    </div>
+                    <div class="info-row-actions">
+                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={51a15634-a3f6-4dd1-957a-a280b5efc920}&amp;action=embedview&amp;wdStartOn=1" 
+                           target="_blank" class="btn">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        <a href="https://onedrive.pif.gov.sa/personal/taltamimi/_layouts/15/WopiFrame.aspx?sourcedoc={51a15634-a3f6-4dd1-957a-a280b5efc920}&amp;action=embedview&amp;wdStartOn=1" 
+                           target="_blank" class="btn btn-download">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Actions Required Row -->
+                <div class="info-row other-row">
+                    <div class="info-row-content">
+                        <div class="info-row-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="info-row-details">
+                            <h3>Actions Required</h3>
+                            <div class="actions-content">
+                                <div class="action-item priority-item">
+                                    <div class="action-icon priority">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="action-details">
+                                        <span class="action-title">Update Business Impact Analysis (BIA)</span>
+                                        <span class="action-deadline">Due: August 15, 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Incident reporting functionality
+    reportIncidentBtn.addEventListener('click', function() {
+        incidentModal.style.display = 'block';
+        // Set today's date as default
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('incident-date').value = today;
+    });
+    
+    closeModal.addEventListener('click', function() {
+        incidentModal.style.display = 'none';
+        resetIncidentForm();
+    });
+    
+    cancelIncident.addEventListener('click', function() {
+        incidentModal.style.display = 'none';
+        resetIncidentForm();
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target === incidentModal) {
+            incidentModal.style.display = 'none';
+            resetIncidentForm();
+        }
+    });
+    
+    // Update incident departments when division changes
+    incidentDivisionSelect.addEventListener('change', function() {
+        const division = this.value;
+        incidentDepartmentSelect.innerHTML = '<option value="">Select a Department</option>';
+        
+        if (division && departmentOptions[division]) {
+            departmentOptions[division].forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = dept;
+                incidentDepartmentSelect.appendChild(option);
+            });
+        }
+    });
+    
+    // Handle incident form submission
+    incidentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            division: incidentDivisionSelect.options[incidentDivisionSelect.selectedIndex].text,
+            department: incidentDepartmentSelect.options[incidentDepartmentSelect.selectedIndex].text,
+            date: document.getElementById('incident-date').value,
+            description: document.getElementById('incident-description').value
+        };
+        
+        // In a real implementation, you would send this data to your server
+        console.log('Incident Report Submitted:', formData);
+        
+        // Show success message with toast
+        showToast(`Incident report submitted successfully for ${formData.division} - ${formData.department}`, 'success', 4000);
+        
+        // Close modal and reset form
+        incidentModal.style.display = 'none';
+        resetIncidentForm();
+    });
+    
+    function resetIncidentForm() {
+        incidentForm.reset();
+        incidentDepartmentSelect.innerHTML = '<option value="">Select a Department</option>';
+    }
+});
