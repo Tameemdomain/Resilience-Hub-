@@ -49,10 +49,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Department options based on division
     const departmentOptions = {
         'mena-investment': ['Direct Investments (1)', 'Direct Investments (2)', 'Investment Planning & Governance', 'Operational Value Creation Group', 'Securities Investments'],
-        'international-investment': ['Global Markets', 'Cross-Border Transactions', 'International Relations', 'Currency Management', 'Regional Analysis'],
+        'international-investment': ['Direct Investments', 'Private Equity', 'Public Investments', 'RE & Infrastructure'],
         'risk': ['Operational Risk', 'Cybersecurity Risk', 'Investment Risk Analysis', 'Investment Risk Coverage', 'Risk Planning and Governance'],
-        'real-estate-investment': ['Property Acquisition', 'Asset Valuation', 'Development Projects', 'Property Management', 'Real Estate Analytics'],
-        'legal': ['Corporate Law', 'Investment Legal', 'Compliance Legal', 'Contract Management', 'Regulatory Legal']
+        'real-estate-investment': ['Center of Excellence', 'Local Real Estate Investment Strategy', 'Local Real Estate Planning and Governance', 'Portfolio Management'],
+        'legal': ['Finance Legal Advisory', 'Legislative, Governance & Commercial Legal Advisory', 'Legal Planning & Operations', 'Local Real Estate Investments Legal Advisory', 'Legal Planning & Operations']
     };
     
     // Update departments when division changes
@@ -274,7 +274,7 @@ Best regards,
                         </div>
                         <div class="floor-marshal-info">
                             <h3>Floor Marshal</h3>
-                            <p><strong>Tameem Altamimi</strong> - Head Of MENA Investment | tameem.altamimi@pif.gov.sa | +966 12 345 6787</p>
+                            <p><strong>Tameem Altamimi</strong> - Business Resilience Expert | tameem.altamimi@pif.gov.sa | +966 12 345 6787</p>
                         </div>
                     </div>
                 </div>
