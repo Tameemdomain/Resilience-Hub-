@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const subject = 'Resilience Hub - Contact Request';
         const body = `Hello,
 
-I am contacting you regarding the Resilience Hub dashboard.
+I am contacting you regarding the Resilience Hub.
 
 Please provide your inquiry below:
 
